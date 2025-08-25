@@ -1,0 +1,33 @@
+show databases;
+create database sathyabama;
+use sathyabama;
+create table ece(
+sid int,
+sname varchar(25),
+smarks int,
+dept varchar(25)
+);
+desc ece;
+select * from ece;
+insert into ece values(1,'thirsha',100,'ece');
+insert into ece values(1,'rock',90,'ece');
+insert into ece values(1,'ram',80,'ece');
+alter table ece add( 
+smail varchar(25)
+);
+alter table ece drop column smail;
+alter table ece add(
+slocation varchar(25),
+scountry varchar(25));
+update ece set sphone=123456789,
+slocation='chennai',
+scountry='india' 
+where sname = 'thirsha';
+update ece set sphone=234567890,
+slocation='calcultta',
+scountry='uk' 
+where sname = 'rock';
+update ece set sphone=987654321,
+slocation='los anglelos',
+scountry='america' 
+where sname = 'ram';
