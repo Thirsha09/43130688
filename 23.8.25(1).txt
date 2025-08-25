@@ -1,0 +1,16 @@
+show databases;
+create database company;
+use company;
+create table persons(
+id int  not null,
+firstname varchar(25) not null,
+lastname varchar(25) not null ,
+age int );
+select*from persons;
+alter table persons modify age int not null;
+alter table persons add primary key (id);
+alter table persons add constraint uniqueid unique(id);
+alter table persons add constraint checkage check (age <=130);
+insert into persons values(1,'thirsha','m',20);
+desc persons;
+
