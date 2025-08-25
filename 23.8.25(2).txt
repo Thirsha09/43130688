@@ -1,0 +1,30 @@
+#just learning matchimng two tables using primary and foreign keys,in realtime amazon exammple
+show databases;
+drop database amazon;
+create database amazon;
+use amazon;
+#create table category 
+create table category(
+cid int primary key,
+cname varchar(25) not null);
+select*from category;
+#create table product
+create table product(
+pid int primary key,
+pname varchar(25) not null,
+cid int ,
+foreign key(cid)references category (cid));
+select*from product;
+insert into category values( 101,'electronics');
+insert into category values(102,'furniture');
+insert into category values( 001,'smart watch');
+insert into category values( 002,'sofa');
+delete from category where cid=1; #here it got deleted here that  parent (category)table still not inked with child(product)
+delete from category where cid=2;
+insert into product values( 1,'smart watch',101);
+insert into product values( 2,'sofa',102);
+delete from category where cid=101; # cannot delete after # cannot delete after parent (category)table got inked with child(product)
+update category set cid=103 where cid = 101;  # cannot update after parent (category)table got inked with child(product)
+
+
+
