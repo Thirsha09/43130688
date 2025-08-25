@@ -1,0 +1,17 @@
+show databases;
+create database sathyabama;
+use sathyabama;
+create table ece(
+sid int,
+sname varchar(25),
+smarks int,
+dept varchar(25)
+);
+desc ece;
+select * from ece;
+insert into ece values(1,'thirsha',100,'ece');
+insert into ece values(1,'rock',90,'ece');
+insert into ece values(1,'ram',80,'ece');
+alter table ece add( 
+smail varchar(25)
+);
