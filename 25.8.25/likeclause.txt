@@ -1,0 +1,37 @@
+show databases;
+create DATABASE school;
+USE school;
+create table teachers(
+eno int primary key,
+ename varchar(50),
+subjectname varchar(50),
+salary int
+);
+INSERT INTO teachers VALUES
+(10, 'vinayak', 'tamil',12000 );
+INSERT INTO teachers VALUES
+(20, 'ram', 'english',60000);
+INSERT INTO teachers VALUES
+(30, 'siva', 'maths',15000);
+INSERT INTO teachers VALUES
+(40, 'Trisha', 'science',10000);
+SELECT * FROM teachers;
+DESC teachers;
+SELECT eno AS Employee_ID, ename AS Employee_Name FROM teachers;
+DELETE FROM teachers WHERE eno = 10;
+SELECT * FROM teachers;
+CREATE OR REPLACE VIEW less_than_1L AS
+SELECT ename, 
+salary
+FROM teachers
+WHERE salary <= 100000;
+SELECT * FROM less_than_1L;
+CREATE OR REPLACE VIEW admin_workers AS
+SELECT ename, 
+salary
+FROM teachers
+WHERE subjectname = 'maths';
+SELECT * FROM admin_workers;
+DROP VIEW IF EXISTS less_than_1L;
+DROP VIEW IF EXISTS admin_workers;
+select * from teachers where ename like 'v_n_y_k';

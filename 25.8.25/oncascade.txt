@@ -1,0 +1,34 @@
+show databases;
+drop database MNC;
+create database MNC;
+use MNC ;
+create table department(
+dno int primary key,
+dname varchar(30),
+age int);
+select *from department;
+ create table employee(
+ eno int primary key,
+ ename varchar(25),
+ dno int not null,
+ foreign key (dno) references department(dno)
+ foreign key (dno) references department(dno)
+ on delete cascade 
+ on update cascade);
+ select *from employee;
+ insert into department values(1, 'rock',18);
+insert into department values(2, 'thirsha',19);
+insert into department values(3, 'ram',20);
+insert into employee values(100, 'siva',1);
+insert into employee values(101, 'dharshini',2);
+insert into employee values(103, 'rick',3);
+update department set  dno =1001 where dno =1;
+update employee set eno = 1001 where eno =100;
+delete from department where dno = 2;
+delete from employee where eno=101;
+
+
+  
+ 
+ 
+ 
