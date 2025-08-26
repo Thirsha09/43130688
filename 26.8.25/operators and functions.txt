@@ -49,8 +49,8 @@ select*from professor where staffnumber not in(1001,1002);
  
  /*questions given in classs:
  select avg(salary) as average_admin_salary from workers where department='admin';
- select sum(salary) as salary_of_admin_hr from workers where department('hr','admin');
- select count(*) as total_employee_names_tart_with_v from workers where first name like 'v%';
+ select sum(salary) as salary_of_admin_hr from workers where departmentin('hr','admin');
+ select count(*) as total_employee_names_tart_with_v from workers where firstname like 'v%';
  select sum(salary) as total_salary_between from workers where salary between 50000 and 200000;
  
  */
@@ -69,4 +69,5 @@ select *,
 else 'high salary'
 end as salary_category 
 from professor;
+  
   
