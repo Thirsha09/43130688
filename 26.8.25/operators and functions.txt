@@ -1,0 +1,72 @@
+show databases;
+create database university;
+use university;
+create table professor(
+staffnumber int,
+staffname varchar(30),
+salary int,
+department varchar(25));
+desc professor;
+insert into  professor values(1001,'siva' ,50000,'ece');
+insert into  professor values(1002,'thirsha' ,100000,'cse');
+insert into  professor values(1003,'ram' ,70000,'ece');
+insert into  professor values(1004,'rock' ,600000,'ece');
+select*from professor ;
+select *from professor where department='ece' and salary>=50000;
+select*from professor where department='cse' or salary > 60000;
+select*from professor where not department ='ece';
+select*from professor where  department = 'ece' and salary between 50000 and 70000;
+select*from professor where (department='cse' and salary > 60000 )or(department='ece' and salary=50000);
+select*from professor where not( department='cse' and salary>60000);
+select*from professor where not ( department = 'ece' and salary<1000000);
+select*from professor where  department  not in('ece') and salary not in(50000);
+select*from professor where  department  not in('cse') and salary not in(600000);
+select* from professor where department='ece' and salary >50000 and salary < 100000;
+select*from professor where not (salary>100000 and salary <=700000);
+select*from professor where staffnumber not in(1001,1002);
+
+
+/* practice question given in class:
+ select*from workers where department  not in('hr','admin') and salary between 70000 and 300000;
+ select*from workers where firstname like'v%'and salary >=200000;
+ select*from workers where department not in ('admin')and salary<100000;*/
+ 
+ /*aggregations functons like min max cannot use in varclass use for numerics 
+ these are aggreated function examples */
+ select count(*) as total_professors from professor;
+ select count(*) as ece_professors from professor where department='ece';
+ select sum(salary) as total_salary from professor;
+ select sum(salary) as ece_salary from professor where department ='ece';
+ select avg(salary) as avg_salary from professor;
+ select avg(salary) as avg_salary from professor where department='cse' ;
+ select avg(salary) as avg_salary from professor where department='ece';
+ select max(salary) as max_salary from professor ;
+ select max(salary) as ece_maxsalary from professor where department= 'ece';
+ select min(salary) as min_salary from professor ;
+ select min(salary) as min_salary from professor where department='ece';
+ select department, count(*) total_professor from professor group by department;
+ select department,avg(salary) as as_departmentsalary from professor group by department;
+ 
+ /*questions given in classs:
+ select avg(salary) as average_admin_salary from workers where department='admin';
+ select sum(salary) as salary_of_admin_hr from workers where department('hr','admin');
+ select count(*) as total_employee_names_tart_with_v from workers where first name like 'v%';
+ select sum(salary) as total_salary_between from workers where salary between 50000 and 200000;
+ 
+ */
+ 
+select staffnumber from professor
+union
+select staffname from professor;
+select staffnumber from professor
+union all 
+select staffname from professor;
+select distinct(salary)from professor;
+select *,
+ case
+ when salary <= 50000 then 'low salary'
+ when salary >50000 and salary <100000 then 'medium level salary'
+else 'high salary'
+end as salary_category 
+from professor;
+  
