@@ -1,0 +1,51 @@
+show databases;
+drop database university;
+create database university;
+use university;
+create table professor(
+staffnumber int,
+staffname varchar(30),
+salary int,
+department varchar(25));
+desc professor;
+insert into  professor values(1001,'siva' ,50000,'ece');
+insert into  professor values(1002,'thirsha' ,100000,'cse');
+insert into  professor values(1003,'ram' ,70000,'ece');
+insert into  professor values(1004,'rock' ,60000,'cse');
+insert into  professor values(1005,'jack' ,40000,'cse');
+insert into  professor values(1006,'rocky' ,80000,'ece');
+select*from professor;
+select department,count(department)  from professor group by department ;
+select*from professor where department='ece' order by salary desc;
+select*from professor where department='cse'order by salary asc;
+select department,count(salary) as total_salary from professor group by department order by total_salary  desc;
+select department, sum(salary) as total_salary from professor group by department order by total_salary desc;
+select department, count(staffname) as total_staff from professor group by department  ;
+select department, max(salary) as highest_salary from professor group by department;
+select staffname, salary, department from professor order by salary desc;
+select avg(salary) as avg_salarycse from professor ;
+select avg(salary) as avg_salaryece from professor where department='ece';
+-- upper and lower case --
+select upper(staffname) from professor;
+select lower(staffname) from professor;
+-- trim --
+insert into professor values(1007,'siva dharshini', 60000,'ece');
+delete from professor where staffnumber='1007';
+insert into professor values(1007,' siva dharshini', 60000,'ece');
+select trim(staffname) from professor;
+select ltrim(staffname) from professor;
+select rtrim(staffname) from professor;
+-- offset --
+select * from professor limit 4  offset 3;
+-- select* from professor limit( select count(*)-3 from professor ) offset 0 ;--
+select * ,row_number() over (order by staffnumber) as rownum from professor;
+select *
+ from (
+select*,row_number() over (order by staffnumber) as rownum from professor
+) temp
+where rownum < 6;
+-- select * from professor order by staffnumber offset 2  rows fetch next 5 rows only;--
+select department, count(*) as total_professor from professor group by department having count(*)>3;
+select staffname ,salary from professor where salary > (select avg(salary)from professor);
+
+
