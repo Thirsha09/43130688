@@ -1,0 +1,97 @@
+drop database clg;
+CREATE DATABASE clg;
+USE clg;
+
+-- 1. Department Table
+CREATE TABLE Department (
+    dept_id INT PRIMARY KEY AUTO_INCREMENT,
+    dept_name VARCHAR(50) NOT NULL);
+
+-- 2. Professor Table
+CREATE TABLE Professor (
+    prof_id INT PRIMARY KEY AUTO_INCREMENT,
+    prof_name VARCHAR(50) NOT NULL,
+    salary INT,
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES Department(dept_id)
+
+-- 3. Course Table
+CREATE TABLE Course (
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_name VARCHAR(50) NOT NULL,
+    credits INT,
+    prof_id INT,
+    FOREIGN KEY (prof_id) REFERENCES Professor(prof_id));
+
+-- Insert data into Department
+INSERT INTO Department (dept_name) VALUES 
+('CSE'), ('ECE'), ('MECH');
+
+-- Insert data into Professor
+INSERT INTO Professor (prof_name, salary, dept_id) VALUES
+('Siva', 90000, 1),
+('Thirsha', 120000, 1),
+('Arun', 80000, 2),
+('Priya', 95000, 2),
+('Kiran', 70000, 3);
+
+-- Insert data into Course
+INSERT INTO Course (course_name, credits, prof_id) VALUES
+('DBMS', 4, 1),
+('OS', 3, 1),
+('AI', 5, 2),
+('Networks', 3, 3),
+('Electronics', 4, 4),
+('Thermodynamics', 5, 5);
+
+-- 1️ count courses each professor teaches--
+SELECT p.prof_name, COUNT(c.course_id) AS num_courses
+FROM Professor p
+JOIN Course c ON p.prof_id = c.prof_id
+GROUP BY p.prof_name;
+
+-- 2 Department-wise average professor salary (> 85,000)
+SELECT d.dept_name, AVG(p.salary) AS avg_salary
+FROM Department d
+JOIN Professor p ON d.dept_id = p.dept_id
+GROUP BY d.dept_name
+HAVING AVG(p.salary) > 85000;
+
+-- 3 Professors who teach more than 1 course
+SELECT p.prof_name, COUNT(c.course_id) AS num_courses
+FROM Professor p
+JOIN Course c ON p.prof_id = c.prof_id
+GROUP BY p.prof_name, p.prof_id
+HAVING COUNT(c.course_id) > 1;
+
+-- 5 Department with maximum number of courses (>1 course)
+SELECT d.dept_name, COUNT(c.course_id) AS total_courses
+FROM Department d
+JOIN Professor p ON p.dept_id = d.dept_id
+JOIN Course c ON c.prof_id = p.prof_id
+GROUP BY d.dept_name
+HAVING COUNT(c.course_id) > 1;
+
+-- 5 Professors with salary > 6000
+SELECT prof_name, dept_id
+FROM Professor
+WHERE salary > 6000;
+
+-- 6 LEFT, INNER, RIGHT JOIN (Department-Professor-Course)
+-- INNER JOIN: professors with courses
+SELECT p.prof_name, d.dept_name, c.course_name
+FROM Professor p
+INNER JOIN Department d ON p.dept_id = d.dept_id
+INNER JOIN Course c ON c.prof_id = p.prof_id;
+
+-- LEFT JOIN: all professors with their courses (NULL if no course)
+SELECT p.prof_name, d.dept_name, c.course_name
+FROM Professor p
+LEFT JOIN Department d ON p.dept_id = d.dept_id
+LEFT JOIN Course c ON c.prof_id = p.prof_id;
+
+-- RIGHT JOIN: all courses with their professor info (NULL if no professor)
+SELECT p.prof_name, d.dept_name, c.course_name
+FROM Professor p
+RIGHT JOIN Course c ON c.prof_id = p.prof_id
+RIGHT JOIN Department d ON p.dept_id = d.dept_id;
